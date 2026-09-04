@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Button, Image } from 'react-native';
+import { useState } from 'react';
 
 export default function App() {
   return (
@@ -18,10 +19,11 @@ export default function App() {
         <TextInput
           placeholder="First name"
           style={styles.input}
-          placeholderTextColor="#999"
+          placeholderTextColor="#1d1919"
+          value={Name}
+          onChangeText={setName}
         />
-
-        <Text style={styles.label}>Enter your last name:</Text>
+        <Text style={styles.label}>Enter your Surname:</Text>
         <TextInput
           placeholder="Surname"
           style={styles.input}
