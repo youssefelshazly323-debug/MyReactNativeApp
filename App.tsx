@@ -1,24 +1,69 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, Button, Image } from 'react-native';
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  type NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import ViewDetails from '../ViewDetails';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  ViewDetails: {
+    NameSend: string;
+    SurnameSend: string;
+  };
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export type MainScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Home'
+>;
+
+export type ViewDetailsProps = NativeStackScreenProps<
+  RootStackParamList,
+  'ViewDetails'
+>;
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'My App' }}
+        />
+        <Stack.Screen
+          name="ViewDetails"
+          component={ViewDetails}
+          options={{ title: 'User Details' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-function HomeScreen() {
+function HomeScreen({ navigation }: MainScreenProps) {
   const [name, setName] = useState('');
-  const [surName, setSurName] = useState('');
+  const [surname, setSurname] = useState('');
+
+  const addUser = () => {
+    navigation.navigate('ViewDetails', {
+      NameSend: name,
+      SurnameSend: surname,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -36,26 +81,22 @@ function HomeScreen() {
         <TextInput
           placeholder="First name"
           style={styles.input}
-          placeholderTextColor="#1d1919"
+          placeholderTextColor="#555555"
           value={name}
           onChangeText={setName}
         />
 
-        <Text style={styles.label}>Enter your Surname:</Text>
+        <Text style={styles.label}>Enter your surname:</Text>
         <TextInput
           placeholder="Surname"
           style={styles.input}
-          placeholderTextColor="#1e191908"
-          value={surName}
-          onChangeText={setSurName}
+          placeholderTextColor="#555555"
+          value={surname}
+          onChangeText={setSurname}
         />
 
         <View style={styles.buttonWrapper}>
-          <Button
-            title="Add user"
-            color="#17077e"
-            onPress={() => console.log('Name: ' + name + ' Surname: ' + surName)}
-          />
+          <Button title="Add user" color="#17077e" onPress={addUser} />
         </View>
       </View>
 
@@ -73,14 +114,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   mainPicture: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
   },
   imageSize: {
-    width: 350,
-    height: 350,
+    width: 300,
+    height: 300,
     resizeMode: 'contain',
   },
   welcomeText: {
@@ -96,7 +136,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#333',
+    color: '#333333',
     marginBottom: 6,
   },
   input: {
