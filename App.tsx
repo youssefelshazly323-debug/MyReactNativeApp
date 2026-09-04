@@ -1,9 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, Image } from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <View style={styles.mainPicture}>
+        <Image style={styles.imageSize} source={require('./img/welcome_to_react.png')} />
+      </View>
+
       <Text style={styles.welcomeText}>Welcome to my app!</Text>
 
       <View style={styles.form}>
@@ -18,7 +22,7 @@ export default function App() {
         <TextInput
           placeholder="Surname"
           style={styles.input}
-          placeholderTextColor="#999"
+          placeholderTextColor="#75606008"
         />
 
         <View style={styles.buttonWrapper}>
@@ -42,6 +46,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
+  },
+  mainPicture: {
+    paddingTop: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  imageSize: {
+    width: 350,
+    height: 350,
+    resizeMode: 'contain',
   },
   welcomeText: {
     fontSize: 28,
