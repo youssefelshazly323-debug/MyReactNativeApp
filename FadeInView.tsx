@@ -9,12 +9,8 @@ interface FadeInViewProps {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
 }
-const FadeInView: React.FC<FadeInViewProps> = ({ children, style }) => {
 
-export default function FadeInView({
-  children,
-  style,
-}: FadeInViewProps) {
+const FadeInView: React.FC<FadeInViewProps> = ({ children, style }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -26,8 +22,15 @@ export default function FadeInView({
   }, [fadeAnim]);
 
   return (
-    <Animated.View style={[style as object, { opacity: fadeAnim }]}>
+    <Animated.View
+      style={{
+        ...(style as object),
+        opacity: fadeAnim,
+      }}
+    >
       {children}
     </Animated.View>
   );
-}
+};
+
+export default FadeInView;
