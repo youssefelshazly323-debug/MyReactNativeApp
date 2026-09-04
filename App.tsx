@@ -5,7 +5,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.mainPicture}>
-        <Image style={styles.imageSize} source={require('./img/welcome_to_react.png')} />
+        <Image
+          style={styles.imageSize}
+          source={require('./aea978180caed0e602cbbe464f77864f.jpg')}
+        />
       </View>
 
       <Text style={styles.welcomeText}>Welcome to my app!</Text>
